@@ -1,12 +1,14 @@
 package Assignment1;
 
-// Shelter.java
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Shelter {
     private String name;
     private String address;
-    private ArrayList<Pet> pets;
+    private List<Pet> pets;
 
     public Shelter(String name, String address) {
         this.name = name;
@@ -14,23 +16,30 @@ public class Shelter {
         this.pets = new ArrayList<>();
     }
 
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getAddress() {
-        return address;
-    }
-    public void setAddress(String address) {
-        this.address = address;
-    }
-    public ArrayList<Pet> getPets() {
-        return pets;
-    }
     public void addPet(Pet pet) {
         pets.add(pet);
+    }
+
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public List<Pet> filterBySpecies(String species) {
+        return pets.stream()
+                .filter(pet -> pet.getSpecies().equalsIgnoreCase(species))
+                .collect(Collectors.toList());
+    }
+
+    public List<Pet> searchByName(String name) {
+        return pets.stream()
+                .filter(pet -> pet.getName().equalsIgnoreCase(name))
+                .collect(Collectors.toList());
+    }
+
+    public List<Pet> sortByAge() {
+        return pets.stream()
+                .sorted(Comparator.comparingInt(Pet::getAge))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -38,4 +47,3 @@ public class Shelter {
         return "Shelter{name='" + name + "', address='" + address + "', pets=" + pets + "}";
     }
 }
-

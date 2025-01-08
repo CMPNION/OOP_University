@@ -1,31 +1,41 @@
 package Assignment1;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        Pet dog = new Pet("Fluff", "Dog", 3);
-        Pet cat = new Pet("Whitey", "Cat", 2);
-        Adopter adopter = new Adopter("Dima", 18, "240315");
+        // Create shelter and pets
         Shelter shelter = new Shelter("AITU Pet Foundation", "Mangilik el EXPO C1");
+        Pet dog = new Pet("Fluff", 3, "Dog");
+        Pet cat = new Pet("Whitey", 2, "Cat");
+        Pet rabbit = new Pet("Hopper", 1, "Rabbit");
 
+        // Add pets to shelter
         shelter.addPet(dog);
         shelter.addPet(cat);
+        shelter.addPet(rabbit);
 
         System.out.println("All Pets in Shelter:");
         System.out.println(shelter);
 
-        // Adopter adopts a pet
-        PetAdoption petAdoption = new PetAdoption(adopter);
-        petAdoption.adoptPet(cat);  // Cat is adopted
-        petAdoption.adoptPet(dog);  // Dog is adopted
+        // Filter pets by species
+        System.out.println("\nFilter by species (Cat):");
+        List<Pet> cats = shelter.filterBySpecies("Cat");
+        cats.forEach(System.out::println);
 
-        // Check the adoption status
-        System.out.println("\nAdopter and their adopted pets:");
-        System.out.println(petAdoption);
+        // Search pets by name
+        System.out.println("\nSearch by name (Fluff):");
+        List<Pet> searchResults = shelter.searchByName("Fluff");
+        searchResults.forEach(System.out::println);
 
-        System.out.println("\nUpdated Shelter details:");
-        System.out.println(shelter);
+        // Sort pets by age
+        System.out.println("\nPets sorted by age:");
+        List<Pet> sortedPets = shelter.sortByAge();
+        sortedPets.forEach(System.out::println);
 
-        System.out.println("\nAttempting to re-adopt an already adopted pet:");
-        petAdoption.adoptPet(cat);  // Attempt to adopt an already adopted pet
+        // Adopt a pet
+        System.out.println("\nAdopting a pet...");
+        cat.adopt();
+        System.out.println(cat);
     }
 }
