@@ -1,4 +1,4 @@
 package Assignment1;
 
-public class Adopter {
+public class Animal {
 }
